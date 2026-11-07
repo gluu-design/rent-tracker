@@ -269,10 +269,11 @@ function initMap(){
   if (MAP || !window.L) return !!MAP;
   MAP = L.map("map",{scrollWheelZoom:false, zoomControl:true}).setView([40.725,-73.952],13);
   const dark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
-  const tiles = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark?'dark_all':'light_all'}/{z}/{x}/{y}{r}.png`,{
-    subdomains:"abcd", maxZoom:19,
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(MAP);
+  if (dark) document.getElementById("map").classList.add("dark-tiles");
   let errs=0;
   tiles.on("tileerror",()=>{ if(++errs===3 && !tilesFailed){ tilesFailed=true; fallbackLabels(); } });
   MAP.on("click",()=>MAP.scrollWheelZoom.enable());
