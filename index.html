@@ -69,6 +69,44 @@
   .cols ul{margin:0;padding-left:18px}
   .runs{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted)}
   .empty{padding:30px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:12px}
+  /* --- map --- */
+  #map{height:360px;border-radius:12px;border:1px solid var(--line);margin-bottom:16px;background:var(--grey-soft);position:relative;z-index:0}
+  .map-note{font-size:12px;color:var(--muted);margin:-10px 0 16px}
+  .item.flash{outline:3px solid var(--brick);outline-offset:2px;transition:outline-color .3s}
+  .pin-btn{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;padding:2px 8px;font:inherit;font-size:12px;cursor:pointer;margin-top:8px}
+  .pin-btn:hover{color:var(--brick);border-color:var(--brick)}
+  .pop b{font-size:14px} .pop .pp{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#555;margin:2px 0 6px}
+  .pop button{background:#1d1b17;color:#fff;border:0;border-radius:6px;padding:5px 10px;font:inherit;font-size:12px;cursor:pointer}
+  .hood-label{font:600 11px "IBM Plex Sans",sans-serif;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;background:none;border:0}
+  /* Leaflet essentials, inlined so the map also works where external stylesheets are blocked */
+  .leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
+  .leaflet-container{overflow:hidden;-webkit-tap-highlight-color:transparent;font:12px/1.4 "IBM Plex Sans",sans-serif;outline:0}
+  .leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow{user-select:none;-webkit-user-drag:none}
+  .leaflet-container img.leaflet-tile{max-width:none!important;max-height:none!important;width:256px;height:256px}
+  .leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}
+  .leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}
+  .leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}
+  .leaflet-zoom-animated{transform-origin:0 0}
+  .leaflet-zoom-anim .leaflet-zoom-animated{transition:transform .25s cubic-bezier(0,0,.25,1)}
+  .leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile{transition:none}
+  svg.leaflet-zoom-animated path,.leaflet-pane>svg path{pointer-events:none}
+  .leaflet-pane>svg path.leaflet-interactive,.leaflet-interactive{pointer-events:auto;cursor:pointer}
+  .leaflet-grab{cursor:grab}.leaflet-dragging .leaflet-grab{cursor:grabbing}
+  .leaflet-control{position:relative;z-index:800;pointer-events:auto;float:left;clear:both}
+  .leaflet-top,.leaflet-bottom{position:absolute;z-index:1000;pointer-events:none}
+  .leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}
+  .leaflet-right .leaflet-control{float:right;margin-right:10px}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-bottom .leaflet-control{margin-bottom:0}
+  .leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.25);border-radius:6px;overflow:hidden}
+  .leaflet-bar a{display:block;width:30px;height:30px;line-height:30px;text-align:center;background:#fff;color:#222;text-decoration:none;font:bold 18px/30px sans-serif;border-bottom:1px solid #ddd}
+  .leaflet-bar a:last-child{border-bottom:0}
+  .leaflet-control-attribution{background:rgba(255,255,255,.8);color:#333;padding:0 5px;font-size:10px;margin:0}
+  .leaflet-control-attribution a{color:#333}
+  .leaflet-popup{position:absolute;text-align:center;margin-bottom:14px}
+  .leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:10px;background:#fff;color:#1d1b17;box-shadow:0 3px 14px rgba(0,0,0,.3)}
+  .leaflet-popup-content{margin:10px 14px;min-width:190px}
+  .leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-left:-20px;overflow:hidden;pointer-events:none}
+  .leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;transform:rotate(45deg);background:#fff}
+  .leaflet-popup-close-button{position:absolute;top:2px;right:4px;font:16px/20px sans-serif;color:#777;text-decoration:none}
   @media (max-width:640px){ .item{grid-template-columns:56px 1fr} .score{width:56px;height:56px;font-size:20px} .score small{display:none} .price{grid-column:2;text-align:left} }
 </style>
 </head>
@@ -97,6 +135,9 @@
       <option value="price">Price</option>
     </select></label>
   </div>
+
+  <div id="map" aria-label="Map of tracked apartments"></div>
+  <div class="map-note" id="mapnote">Click a dot to see the apartment. Green = score 70+, amber = 45–69, grey = lower. Pin positions are approximate (within about a block); Craigslist posts without a street number are placed in their area.</div>
 
   <div class="list" id="list"></div>
 
@@ -139,6 +180,7 @@
   </section>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const fmt = n => n==null ? "—" : "$" + Number(n).toLocaleString("en-US");
 let DATA = null, filter = "all", sortBy = "score";
@@ -184,7 +226,7 @@ function render(){
     const hist = (l.history||[]).map(h=>`<tr><td>${esc(h.date)}</td><td>${fmt(h.price)}</td><td>${esc(h.event)}</td></tr>`).join("");
     const b = l.building||{};
     const bl = [b.year_built&&("built "+b.year_built), b.units&&(b.units+" units"), b.rs_units!=null&&(b.rs_units+" RS units"+(b.rs_year?" ("+b.rs_year+")":"")), b.tax_program, b.bbl&&("BBL "+b.bbl)].filter(Boolean).join(" · ");
-    return `<article class="item ${l.status==='gone'?'gone':''}">
+    return `<article class="item ${l.status==='gone'?'gone':''}" id="card-${slug(l.id)}">
       <div class="score ${cls(l.confidence)}">${l.confidence}<small>SCORE</small></div>
       <div>
         <div class="title"><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.address)}${l.unit?' #'+esc(l.unit):''}</a></div>
@@ -203,14 +245,78 @@ function render(){
           ${sig?`<table>${sig}</table>`:''}
           ${hist?`<table><tr><th>Date</th><th>Rent</th><th>Event</th></tr>${hist}</table>`:''}
         </details>`:''}
+        ${l.lat!=null?`<button class="pin-btn" data-pin="${esc(l.id)}">Show on map</button>`:''}
       </div>
       <div class="price"><b>${fmt(l.price)}</b>${l.net_effective?`<span>${fmt(l.net_effective)} net eff.</span>`:'<span>base rent</span>'}</div>
     </article>`;
   }).join("");
 
+  drawMap(rows);
+
   document.getElementById("runs").innerHTML = (DATA.runs||[]).slice(-12).reverse().map(r=>
     `${esc(r.ts.replace('T',' ').slice(0,16))} · scanned ${r.scanned} · new ${r.new} — ${esc(r.notes)}`).join("<br>");
 }
+
+function slug(id){ return String(id).replace(/[^a-zA-Z0-9]+/g,"-"); }
+
+/* ---------- map ---------- */
+let MAP=null, LAYER=null, MARKERS={}, tilesFailed=false;
+const COLORS = s => s>=70 ? "#2f6b4f" : s>=45 ? "#c48a1a" : "#8a857a";
+const HOODS = [["Greenpoint",40.7300,-73.9530],["Williamsburg",40.7140,-73.9590],["E. Williamsburg",40.7080,-73.9370],
+  ["Long Island City",40.7470,-73.9350],["Manhattan",40.7600,-73.9800],["Bushwick",40.6960,-73.9220]];
+
+function initMap(){
+  if (MAP || !window.L) return !!MAP;
+  MAP = L.map("map",{scrollWheelZoom:false, zoomControl:true}).setView([40.725,-73.952],13);
+  const dark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+  const tiles = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark?'dark_all':'light_all'}/{z}/{x}/{y}{r}.png`,{
+    subdomains:"abcd", maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  }).addTo(MAP);
+  let errs=0;
+  tiles.on("tileerror",()=>{ if(++errs===3 && !tilesFailed){ tilesFailed=true; fallbackLabels(); } });
+  MAP.on("click",()=>MAP.scrollWheelZoom.enable());
+  return true;
+}
+function fallbackLabels(){
+  // Street tiles can't load here (e.g. inside the Claude app): show neighborhood labels so the dots still make sense.
+  HOODS.forEach(([n,a,b])=>L.marker([a,b],{interactive:false,icon:L.divIcon({className:"hood-label",html:n,iconSize:null})}).addTo(MAP));
+  document.getElementById("mapnote").textContent = "Street map isn't available in this view (outside images are blocked), so the dots are shown with neighborhood labels only. The public page has the full map. Click a dot to see the apartment.";
+}
+function drawMap(rows){
+  if (!initMap()) return;
+  if (LAYER) LAYER.remove();
+  LAYER = L.layerGroup().addTo(MAP); MARKERS={};
+  const pts=[];
+  rows.filter(l=>l.lat!=null && l.lng!=null).forEach(l=>{
+    // nudge units in the same building apart so each dot can be clicked
+    const same = pts.filter(p=>Math.abs(p[0]-l.lat)<1e-5 && Math.abs(p[1]-l.lng)<1e-5).length;
+    const pos=[l.lat + same*0.00025, l.lng + same*0.00025];
+    pts.push([l.lat,l.lng]);
+    const m = L.circleMarker(pos,{radius: l.zone==="A"?9:7, color:"#fff", weight:2, fillColor:COLORS(l.confidence), fillOpacity:.95});
+    m.bindPopup(`<div class="pop"><b>${esc(l.address)}${l.unit?' #'+esc(l.unit):''}</b>
+      <div class="pp">${fmt(l.price)} · score ${l.confidence} · zone ${esc(l.zone)}</div>
+      <div style="font-size:12px;margin-bottom:8px">${esc(l.verdict)} · ${l.beds} bd${l.geo==='area'?' · location approximate':''}</div>
+      <button data-go="${esc(l.id)}">See details ↓</button></div>`);
+    m.addTo(LAYER); MARKERS[l.id]=m;
+  });
+  const pin = rows.filter(l=>l.lat!=null);
+  if (pin.length) MAP.fitBounds(L.latLngBounds(pin.map(l=>[l.lat,l.lng])).pad(0.15),{maxZoom:15});
+}
+function goToCard(id){
+  const el=document.getElementById("card-"+slug(id)); if(!el) return;
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+  const d=el.querySelector("details"); if(d) d.open=true;
+  el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800);
+}
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]"); if(g){ goToCard(g.dataset.go); return; }
+  const p=e.target.closest("[data-pin]");
+  if(p && MARKERS[p.dataset.pin]){
+    document.getElementById("map").scrollIntoView({behavior:"smooth",block:"center"});
+    const m=MARKERS[p.dataset.pin]; MAP.setView(m.getLatLng(),16); m.openPopup();
+  }
+});
 
 document.getElementById("controls").addEventListener("click", e=>{
   const c = e.target.closest(".chip"); if(!c) return;
