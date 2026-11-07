@@ -78,7 +78,7 @@
   .pop b{font-size:14px} .pop .pp{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#555;margin:2px 0 6px}
   .pop button{background:#1d1b17;color:#fff;border:0;border-radius:6px;padding:5px 10px;font:inherit;font-size:12px;cursor:pointer}
   .hood-label{font:600 11px "IBM Plex Sans",sans-serif;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;background:none;border:0}
-    #map.dark-tiles .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}
+  #map.dark-tiles .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}
   /* Leaflet essentials, inlined so the map also works where external stylesheets are blocked */
   .leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane>svg,.leaflet-pane>canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer{position:absolute;left:0;top:0}
   .leaflet-container{overflow:hidden;-webkit-tap-highlight-color:transparent;font:12px/1.4 "IBM Plex Sans",sans-serif;outline:0}
@@ -268,9 +268,10 @@ const HOODS = [["Greenpoint",40.7300,-73.9530],["Williamsburg",40.7140,-73.9590]
 
 function initMap(){
   if (MAP || !window.L) return !!MAP;
-  MAP = L.map("map",{scrollWheelZoom:false, zoomControl:true}).setView([40.725,-73.952],13);
+  MAP = L.map("map",{scrollWheelZoom:false, zoomControl:true}).setView([40.718,-73.955],14);
   const dark = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
-    const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  // OpenStreetMap standard tiles: no API key needed (CARTO now requires one)
+  const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
     maxZoom:19,
     attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(MAP);
@@ -302,8 +303,10 @@ function drawMap(rows){
       <button data-go="${esc(l.id)}">See details ↓</button></div>`);
     m.addTo(LAYER); MARKERS[l.id]=m;
   });
-  const pin = rows.filter(l=>l.lat!=null);
-  if (pin.length) MAP.fitBounds(L.latLngBounds(pin.map(l=>[l.lat,l.lng])).pad(0.15),{maxZoom:15});
+  // Frame Greenpoint / Williamsburg (zone A) instead of every pin in NYC
+  const pinA = rows.filter(l=>l.lat!=null && l.zone==="A");
+  if (pinA.length) MAP.fitBounds(L.latLngBounds(pinA.map(l=>[l.lat,l.lng])).pad(0.2),{maxZoom:15});
+  else MAP.setView([40.718,-73.955],14);
 }
 function goToCard(id){
   const el=document.getElementById("card-"+slug(id)); if(!el) return;
