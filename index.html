@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rent-Stabilized Hunt — Greenpoint &amp; Williamsburg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f3ec; --card:#fffdf8; --ink:#1d1b17; --muted:#6b665c; --line:#e3ddcf;
+    --brick:#a8432a; --brick-soft:#f3e1d8; --green:#2f6b4f; --green-soft:#dcebe2;
+    --amber:#9a6a12; --amber-soft:#f4e8cc; --grey-soft:#ece8de;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#16150f; --card:#1f1d17; --ink:#efe9dc; --muted:#a39d8f; --line:#35322a;
+      --brick:#e07a5c; --brick-soft:#3a2219; --green:#7cc29d; --green-soft:#1d3127;
+      --amber:#e0b35a; --amber-soft:#382c14; --grey-soft:#2a2820; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 64px}
+  header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:16px}
+  h1{font-family:Fraunces,serif;font-weight:700;font-size:clamp(28px,4.5vw,44px);line-height:1.05;margin:0;letter-spacing:-.01em}
+  h1 em{font-style:normal;color:var(--brick)}
+  .sub{color:var(--muted);margin-top:6px}
+  .meta{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);text-align:right}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi b{display:block;font-family:Fraunces,serif;font-size:28px;font-weight:500}
+  .kpi span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .banner{background:var(--green-soft);border-left:4px solid var(--green);padding:10px 14px;border-radius:6px;margin-bottom:18px;font-size:14px}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 16px}
+  .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .controls label{font-size:13px;color:var(--muted);margin-left:8px}
+  select{font:inherit;font-size:13px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 8px}
+  .list{display:grid;gap:12px}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:76px 1fr auto;gap:16px;align-items:start}
+  .item.gone{opacity:.55}
+  .score{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-family:Fraunces,serif;font-size:26px;font-weight:700;position:relative}
+  .score small{position:absolute;bottom:12px;font:500 9px "IBM Plex Mono",monospace;letter-spacing:.06em;opacity:.8}
+  .s-hi{background:var(--green-soft);color:var(--green)} .s-mid{background:var(--amber-soft);color:var(--amber)} .s-lo{background:var(--grey-soft);color:var(--muted)}
+  .title{font-weight:600;font-size:17px}
+  .title a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+  .title a:hover{border-color:var(--brick)}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+  .tag{font-size:11.5px;padding:2px 8px;border-radius:4px;background:var(--grey-soft);color:var(--muted)}
+  .tag.zA{background:var(--brick-soft);color:var(--brick);font-weight:600}
+  .tag.decl{background:var(--green-soft);color:var(--green)}
+  .tag.hidden{background:var(--amber-soft);color:var(--amber);font-weight:600}
+  .tag.rev{border:1px dashed var(--muted);background:transparent}
+  .math{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:var(--paper);border-radius:6px;padding:6px 10px;margin-top:6px}
+  .note{font-size:13.5px;margin-top:6px}
+  .note b{color:var(--brick);font-weight:600}
+  .price{text-align:right;white-space:nowrap}
+  .price b{font-family:Fraunces,serif;font-size:24px;font-weight:500;display:block}
+  .price span{font-size:12px;color:var(--muted)}
+  details{margin-top:8px;font-size:13px}
+  summary{cursor:pointer;color:var(--muted)}
+  table{border-collapse:collapse;width:100%;margin-top:6px;font-size:12.5px}
+  td,th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
+  td.pts{font-family:"IBM Plex Mono",monospace;text-align:right;white-space:nowrap}
+  .pos{color:var(--green)} .neg{color:var(--brick)}
+  section.method{margin-top:40px;border-top:1px solid var(--line);padding-top:20px}
+  h2{font-family:Fraunces,serif;font-weight:500;font-size:24px;margin:0 0 10px}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;font-size:14px}
+  .cols h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--brick);margin:0 0 6px}
+  .cols ul{margin:0;padding-left:18px}
+  .runs{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted)}
+  .empty{padding:30px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:12px}
+  @media (max-width:640px){ .item{grid-template-columns:56px 1fr} .score{width:56px;height:56px;font-size:20px} .score small{display:none} .price{grid-column:2;text-align:left} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>The <em>stabilized</em> hunt</h1>
+      <div class="sub">Rent-stabilized 2BR+ listings, $3k–$5k · Greenpoint &amp; west Williamsburg first</div>
+    </div>
+    <div class="meta" id="meta">loading…</div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+  <div class="banner" id="banner" hidden></div>
+
+  <div class="controls" id="controls">
+    <button class="chip" data-f="all" aria-pressed="true">All active</button>
+    <button class="chip" data-f="zoneA" aria-pressed="false">Zone A only</button>
+    <button class="chip" data-f="hidden" aria-pressed="false">Hidden finds</button>
+    <button class="chip" data-f="hi" aria-pressed="false">Score 70+</button>
+    <button class="chip" data-f="gone" aria-pressed="false">Gone / rented</button>
+    <label>Sort <select id="sort">
+      <option value="score">Confidence</option>
+      <option value="new">Newest seen</option>
+      <option value="price">Price</option>
+    </select></label>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <section class="method">
+    <h2>How a listing gets its score</h2>
+    <div class="cols">
+      <div>
+        <h3>Building signals</h3>
+        <ul>
+          <li>Stabilized units on the building's DOF tax bill (Property Information Portal, openigloo, JustFix, Lucid Rents): +15 to +35, more the higher the share of stabilized units</li>
+          <li>On the DHCR / Rent Guidelines Board building list: +15</li>
+          <li>Built before 1974 with 6+ units, a rental and not a condo or co-op: +10</li>
+          <li>Active 421-a, J-51, 485-x or 467-m tax benefit: +20</li>
+          <li>Fewer than 6 units and built before 1974, or a condo/co-op unit: −30 to −40</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Unit signals</h3>
+        <ul>
+          <li>Listing says stabilized, or mentions an RS lease rider / DHCR: +50 ("Declared")</li>
+          <li>A rent step equals a past rent × the RGB guideline, to within about $5: +25</li>
+          <li>Odd price that isn't a round or marketing number: +10. A ×00/×50/×95/×99 price: −5</li>
+          <li>Market-style swings (cuts, COVID dips, irregular jumps on renewals): −15</li>
+          <li>Other units in the same building declared stabilized: +10</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Reading the score</h3>
+        <ul>
+          <li><b>70+</b>: very likely stabilized. Ask for the RS lease rider</li>
+          <li><b>50–69</b>: likely. Ask the broker directly</li>
+          <li><b>30–49</b>: possible. Worth one question</li>
+          <li>A big jump at vacancy doesn't rule a unit out: it can be the move from a preferential rent to the legal rent, or an IAI increase</li>
+          <li>Since 2019, high rent no longer deregulates an apartment</li>
+        </ul>
+      </div>
+    </div>
+    <h2 style="margin-top:26px">Agent runs</h2>
+    <div class="runs" id="runs"></div>
+  </section>
+</div>
+
+<script>
+const fmt = n => n==null ? "—" : "$" + Number(n).toLocaleString("en-US");
+let DATA = null, filter = "all", sortBy = "score";
+
+function cls(s){ return s>=70 ? "s-hi" : s>=45 ? "s-mid" : "s-lo"; }
+function esc(s){ return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function render(){
+  const L = DATA.listings || [];
+  const active = L.filter(l=>l.status!=="gone");
+  const meta = document.getElementById("meta");
+  const up = new Date(DATA.updated);
+  meta.innerHTML = "Updated " + up.toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}) + "<br>" + active.length + " active · " + L.length + " tracked";
+
+  const k = [
+    ["Active", active.length],
+    ["Zone A", active.filter(l=>l.zone==="A").length],
+    ["Hidden finds", active.filter(l=>!l.declared && l.confidence>=50).length],
+    ["Score 70+", active.filter(l=>l.confidence>=70).length],
+  ];
+  document.getElementById("kpis").innerHTML = k.map(([a,b])=>`<div class="kpi"><span>${a}</span><b>${b}</b></div>`).join("");
+
+  const ban = document.getElementById("banner");
+  if (DATA.banner){ ban.hidden=false; ban.textContent = DATA.banner; }
+  else { ban.hidden=false; ban.innerHTML = "<b>Renewals are frozen.</b> RGB Order #58 sets 0% for 1- and 2-year stabilized leases starting Oct 1, 2026 to Sep 30, 2027."; }
+
+  let rows = L.filter(l=>{
+    if (filter==="gone") return l.status==="gone";
+    if (l.status==="gone") return false;
+    if (filter==="zoneA") return l.zone==="A";
+    if (filter==="hidden") return !l.declared;
+    if (filter==="hi") return l.confidence>=70;
+    return true;
+  });
+  rows.sort((a,b)=> sortBy==="price" ? (a.price-b.price)
+    : sortBy==="new" ? String(b.first_seen).localeCompare(String(a.first_seen))
+    : (b.confidence-a.confidence) || ((a.zone||"Z").localeCompare(b.zone||"Z")));
+
+  const list = document.getElementById("list");
+  if (!rows.length){ list.innerHTML = `<div class="empty">Nothing here yet. The agent adds listings on each run.</div>`; }
+  else list.innerHTML = rows.map(l=>{
+    const sig = (l.signals||[]).map(s=>`<tr><td>${esc(s.name)}<br><span style="color:var(--muted)">${esc(s.detail)}</span></td><td class="pts ${s.points>=0?'pos':'neg'}">${s.points>0?'+':''}${s.points}</td></tr>`).join("");
+    const hist = (l.history||[]).map(h=>`<tr><td>${esc(h.date)}</td><td>${fmt(h.price)}</td><td>${esc(h.event)}</td></tr>`).join("");
+    const b = l.building||{};
+    const bl = [b.year_built&&("built "+b.year_built), b.units&&(b.units+" units"), b.rs_units!=null&&(b.rs_units+" RS units"+(b.rs_year?" ("+b.rs_year+")":"")), b.tax_program, b.bbl&&("BBL "+b.bbl)].filter(Boolean).join(" · ");
+    return `<article class="item ${l.status==='gone'?'gone':''}">
+      <div class="score ${cls(l.confidence)}">${l.confidence}<small>SCORE</small></div>
+      <div>
+        <div class="title"><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.address)}${l.unit?' #'+esc(l.unit):''}</a></div>
+        <div class="tags">
+          <span class="tag ${l.zone==='A'?'zA':''}">Zone ${esc(l.zone)} · ${esc(l.neighborhood)}</span>
+          <span class="tag ${l.declared?'decl':'hidden'}">${l.declared?'Declared':'Hidden find'} · ${esc(l.verdict)}</span>
+          <span class="tag">${l.beds} bd / ${l.baths??'?'} ba</span>
+          ${l.needs_review?'<span class="tag rev">awaiting verification</span>':''}
+          <span class="tag">seen ${esc(l.first_seen)}${l.listed_date?' · listed '+esc(l.listed_date):''}</span>
+        </div>
+        ${bl?`<div class="note" style="color:var(--muted)">${esc(bl)}</div>`:''}
+        ${l.math?`<div class="math">${esc(l.math)}</div>`:''}
+        ${l.deal_note?`<div class="note">${esc(l.deal_note)}</div>`:''}
+        ${l.action?`<div class="note"><b>Next:</b> ${esc(l.action)}</div>`:''}
+        ${(sig||hist)?`<details><summary>Evidence${hist?' & rent history':''}</summary>
+          ${sig?`<table>${sig}</table>`:''}
+          ${hist?`<table><tr><th>Date</th><th>Rent</th><th>Event</th></tr>${hist}</table>`:''}
+        </details>`:''}
+      </div>
+      <div class="price"><b>${fmt(l.price)}</b>${l.net_effective?`<span>${fmt(l.net_effective)} net eff.</span>`:'<span>base rent</span>'}</div>
+    </article>`;
+  }).join("");
+
+  document.getElementById("runs").innerHTML = (DATA.runs||[]).slice(-12).reverse().map(r=>
+    `${esc(r.ts.replace('T',' ').slice(0,16))} · scanned ${r.scanned} · new ${r.new} — ${esc(r.notes)}`).join("<br>");
+}
+
+document.getElementById("controls").addEventListener("click", e=>{
+  const c = e.target.closest(".chip"); if(!c) return;
+  filter = c.dataset.f;
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed", x===c));
+  render();
+});
+document.getElementById("sort").addEventListener("change", e=>{ sortBy=e.target.value; render(); });
+
+fetch("data.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{DATA=d;render();})
+  .catch(()=>{document.getElementById("list").innerHTML='<div class="empty">Could not load data.json</div>';});
+</script>
+</body>
+</html>

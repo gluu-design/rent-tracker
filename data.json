@@ -1,0 +1,1014 @@
+{
+ "updated": "2026-11-07T08:35:24-05:00",
+ "criteria": {
+  "price_min": 3000,
+  "price_max": 5000,
+  "beds_min": 2,
+  "zones": {
+   "A": "Greenpoint (11222) and west Williamsburg (North Side / South Side, roughly west of the BQE/Union Ave; 11211 west, 11249)",
+   "B": "East Williamsburg (11206 / 11211 east of Union Ave), Long Island City / Hunters Point, Manhattan",
+   "C": "Everything else in the search (Astoria, other Queens/Brooklyn, upper Manhattan)"
+  }
+ },
+ "rgb_guidelines": [
+  {
+   "order": 51,
+   "period": "2019-10 to 2020-09",
+   "one_year": 1.5,
+   "two_year": 2.5
+  },
+  {
+   "order": 52,
+   "period": "2020-10 to 2021-09",
+   "one_year": 0,
+   "two_year": "0 first yr, then 1"
+  },
+  {
+   "order": 53,
+   "period": "2021-10 to 2022-09",
+   "one_year": "0 first 6 mo, then 1.5",
+   "two_year": 2.5
+  },
+  {
+   "order": 54,
+   "period": "2022-10 to 2023-09",
+   "one_year": 3.25,
+   "two_year": 5
+  },
+  {
+   "order": 55,
+   "period": "2023-10 to 2024-09",
+   "one_year": 3,
+   "two_year": "2.75 first yr, then 3.2"
+  },
+  {
+   "order": 56,
+   "period": "2024-10 to 2025-09",
+   "one_year": 2.75,
+   "two_year": 5.25
+  },
+  {
+   "order": 57,
+   "period": "2025-10 to 2026-09",
+   "one_year": 3,
+   "two_year": 4.5
+  },
+  {
+   "order": 58,
+   "period": "2026-10 to 2027-09",
+   "one_year": 0,
+   "two_year": 0
+  }
+ ],
+ "runs": [
+  {
+   "ts": "2026-11-07T08:40:00-05:00",
+   "kind": "setup",
+   "scanned": 13,
+   "new": 9,
+   "notes": "Initial seed from the declared-stabilized StreetEasy search. 85 Graham #3B fully verified; others await the first agent run for rent history and building checks."
+  },
+  {
+   "ts": "2026-11-07T08:32:56-05:00",
+   "kind": "scan",
+   "scanned": 43,
+   "new": 6,
+   "notes": "Declared search 13 cards (11 unique), hidden pool pages 1-2 (28 cards), Craigslist RS search (46 posts, mostly no address; several likely duplicates of 85 Graham at $4,271-4,370). Reviewed 6: 85 Graham 4C, Dome 2G, 197 Franklin 3A, 27-51 Jackson 4G, Studio 38 3B, Bevel 807. Fully analyzed 12 new. Dropped (below threshold): 41-22 24th St #2C Huis24 (45, zone B, price cut, base $5,324), Trylon Tower #3A Rego Park (zone C, 45), Terra 45-19 Davis #11A (30, affordable income-restricted unit; probably RS via tax program but not confirmed; Lucid shows no RS data), 121 Boerum #2A (openigloo: not RS), 210 Cook #311 (market-like history), 621 Meeker (4 units), 292 Nassau (5 units). Not verified: DHCR Brooklyn PDF truncated before 11211/11222/11249; building RS counts for 197 Franklin and 228 Kingsland not found. 245 W 109th #11 and 542 E 79th #5S still unreviewed."
+  },
+  {
+   "ts": "2026-11-07T08:35:24-05:00",
+   "kind": "scan",
+   "scanned": 0,
+   "new": 0,
+   "notes": "Manual follow-up run 4 min after the morning scan; search pages unchanged (not re-fetched). Verified: 228 Kingsland #1M -> score 40 (building history market-like, RS claim only via Craigslist); 380 S 4th #2S -> building RS confirmed again, unit unknown. Still unverifiable: Dupont St and Hewes St Craigslist posts (no street numbers); 219 Franklin #4 not re-checked."
+  }
+ ],
+ "listings": [
+  {
+   "id": "streeteasy:87-graham-avenue/3b",
+   "address": "85 Graham Avenue",
+   "unit": "3B",
+   "neighborhood": "East Williamsburg",
+   "zone": "B",
+   "beds": 2,
+   "baths": 1,
+   "price": 4275,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/87-graham-avenue/3b",
+   "listed_date": "2026-11-02",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 96,
+   "verdict": "Declared + verified",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "Listing section titled 'Rent-Stabilized Apartments at 85 Graham Ave'; Zillow copy also says 'Rent stabilized!'"
+    },
+    {
+     "name": "Building has RS units on tax bill",
+     "points": 25,
+     "detail": "openigloo (DOF tax-bill data) shows Rent Stabilized Units: Yes; BBL 3-03088-0021"
+    },
+    {
+     "name": "Building profile",
+     "points": 10,
+     "detail": "Built 1931, 24 units, 6 stories, rental building (pre-1974, 6+ units)"
+    },
+    {
+     "name": "Rent history follows RGB math",
+     "points": 25,
+     "detail": "$4,148 x 1.03 (Order #57, 1-yr) = $4,272.44. Zillow lists $4,272; StreetEasy $4,275"
+    },
+    {
+     "name": "Non-round price",
+     "points": 5,
+     "detail": "$4,275 / $4,272"
+    }
+   ],
+   "building": {
+    "bbl": "3030880021",
+    "year_built": 1931,
+    "units": 24,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": "87 Graham Ave Realty Corp / Dae Sung Realty Corp."
+   },
+   "history": [
+    {
+     "date": "2026-11-02",
+     "price": 4275,
+     "event": "Listed (MySpaceNYC)"
+    },
+    {
+     "date": "2024-09-06",
+     "price": 4148,
+     "event": "Rented"
+    },
+    {
+     "date": "2024-08-06",
+     "price": 4148,
+     "event": "Listed"
+    },
+    {
+     "date": "2022-12-23",
+     "price": 3410,
+     "event": "Rented (Yup Realty)"
+    }
+   ],
+   "math": "4,148 x 1.03 = 4,272.44, which matches Zillow's $4,272. The 2022 to 2024 step (+21.6%) is too big for a renewal. It fits a vacancy where the old tenant paid a preferential rent below the legal rent, or an IAI increase.",
+   "deal_note": "Fair for a 2BR off the L. The Oct 2026 to Sep 2027 renewal guideline is 0%, so a lease signed now likely renews flat.",
+   "action": "Ask the broker for the RS lease rider and the DHCR-registered legal rent. Check whether $4,275 is the legal rent or a preferential rent."
+  },
+  {
+   "id": "streeteasy:87-graham-avenue/4c",
+   "address": "85 Graham Avenue",
+   "unit": "4C",
+   "neighborhood": "East Williamsburg",
+   "zone": "B",
+   "beds": 2,
+   "baths": 1,
+   "price": 4370,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/87-graham-avenue/4c",
+   "listed_date": "2026-11-02",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 90,
+   "verdict": "Declared + verified",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "Description: 'Rent Stabilized!'"
+    },
+    {
+     "name": "Building has RS units on tax bill",
+     "points": 20,
+     "detail": "openigloo: RS units Yes (count unknown); BBL 3-03088-0021"
+    },
+    {
+     "name": "Building profile",
+     "points": 10,
+     "detail": "1931, 24 units, rental"
+    },
+    {
+     "name": "Other units declared RS",
+     "points": 10,
+     "detail": "#3B in the same building is declared RS"
+    },
+    {
+     "name": "Rent history step",
+     "points": 0,
+     "detail": "4,275 -> 4,370 (+2.2%) matches no guideline; at a vacancy this can be a move toward the legal rent"
+    }
+   ],
+   "building": {
+    "bbl": "3030880021",
+    "year_built": 1931,
+    "units": 24,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": "87 Graham Ave Realty Corp"
+   },
+   "history": [
+    {
+     "date": "2026-11-02",
+     "price": 4370,
+     "event": "Listed (MySpaceNYC)"
+    },
+    {
+     "date": "2025-10-22",
+     "price": 4275,
+     "event": "Rented (MySpaceNYC)"
+    },
+    {
+     "date": "2025-09-29",
+     "price": 4275,
+     "event": "Listed"
+    },
+    {
+     "date": "2022-01-27",
+     "price": null,
+     "event": "Rented (Lodger Corp), price not shown"
+    }
+   ],
+   "math": "Oct 2025 lease $4,275. 4,275 x 1.03 (Order 57) = 4,403; Order 58 (0%) = 4,275. New asking $4,370 sits between, so $4,275 was probably a preferential rent or the legal rent is higher. Vacancy step scored 0.",
+   "deal_note": "Zone B, $95 more than #3B in the same building. Renewal from Oct 2026 is at the 0% Order 58 rate on the base rent.",
+   "action": "Ask for the DHCR registered legal rent; if $4,370 is below legal, get the preferential rent written into the lease rider."
+  },
+  {
+   "id": "streeteasy:the-dome/2g",
+   "address": "237 McGuinness Boulevard (The Dome)",
+   "unit": "2G",
+   "neighborhood": "Greenpoint",
+   "zone": "A",
+   "beds": 2,
+   "baths": 1,
+   "price": 4375,
+   "net_effective": 4010,
+   "url": "https://streeteasy.com/building/the-dome/2g",
+   "listed_date": "2026-10-16",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 80,
+   "verdict": "Declared",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'Beautiful two bedroom rent stabilized prime greenpoint'"
+    },
+    {
+     "name": "Affordable HPD unit in new building",
+     "points": 20,
+     "detail": "'HPD guidelines may apply'; income band $150k-$176k (2 people); built 2024, 70 units: points to a 421-a/485-x regulatory agreement (program not confirmed)"
+    },
+    {
+     "name": "Other units declared RS",
+     "points": 10,
+     "detail": "#2H (same building, $4,376, also 'rent stabilized') rented 10/15/2026"
+    }
+   ],
+   "building": {
+    "bbl": null,
+    "year_built": 2024,
+    "units": 70,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": "Likely 421-a/485-x affordable (HPD), not confirmed",
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [
+    {
+     "date": "2026-10-16",
+     "price": 4375,
+     "event": "Listed (Affordable Living NYC)"
+    },
+    {
+     "date": "2025-02-12",
+     "price": 6748,
+     "event": "Rented (Rentopia) - looks inconsistent with an affordable unit; may be a data error"
+    },
+    {
+     "date": "2024-12-05",
+     "price": 6750,
+     "event": "Listed (Rentopia)"
+    }
+   ],
+   "math": "Affordable rent set by HPD/AMI formula, not RGB renewals. Sister unit #2H: $4,200 (May 2025) -> $4,376 (Sep 2026). The 2025 $6,748 entry on #2G does not fit an affordable unit.",
+   "deal_note": "Zone A Greenpoint. Base $4,375; search card shows $4,010 net (1 mo free, 12 mo) but the unit page no longer shows the concession. Income-restricted: household income must be $150k-$176k (max savings $210k). Renewals use the base rent.",
+   "action": "Confirm you fit the income band; ask for the HPD regulatory agreement / RS lease rider and whether the free month still applies. Ask why StreetEasy shows a $6,748 rent in 2025."
+  },
+  {
+   "id": "streeteasy:197-franklin-street-brooklyn/3a",
+   "address": "197 Franklin Street",
+   "unit": "3A",
+   "neighborhood": "Greenpoint",
+   "zone": "A",
+   "beds": 2,
+   "baths": 1,
+   "price": 4995,
+   "net_effective": 4718,
+   "url": "https://streeteasy.com/building/197-franklin-street-brooklyn/3a",
+   "listed_date": "2026-10-09",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 55,
+   "verdict": "Declared",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'RENT STABILIZED!' in this unit's own description"
+    },
+    {
+     "name": "Building profile",
+     "points": 10,
+     "detail": "Built 1928, 6 units, 4 stories, mixed-use rental"
+    },
+    {
+     "name": "Marketing-style price",
+     "points": -5,
+     "detail": "$4,995"
+    },
+    {
+     "name": "Rent history step",
+     "points": 0,
+     "detail": "$3,750 (Oct 2019) -> $4,995 (Oct 2026): +33%, above the RGB chain"
+    }
+   ],
+   "building": {
+    "bbl": null,
+    "year_built": 1928,
+    "units": 6,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [
+    {
+     "date": "2026-10-09",
+     "price": 4995,
+     "event": "Listed (Ankor Management)"
+    },
+    {
+     "date": "2019-10-21",
+     "price": 3750,
+     "event": "No longer available"
+    },
+    {
+     "date": "2019-10-07",
+     "price": 3400,
+     "event": "Price decreased"
+    },
+    {
+     "date": "2019-09-23",
+     "price": 3498,
+     "event": "Listed (Bold New York)"
+    }
+   ],
+   "math": "If stabilized at $3,750 in Oct 2019, 1-yr renewals would give roughly 3,750 x 1.015 x 1.00 x 1.015 x 1.0325 x 1.03 x 1.0275 x 1.03 = 4,348 by Oct 2025. Asking $4,995 is ~$650 higher; an IAI on a <=35-unit building adds only ~1/168 of the cost per month, so the gap needs explaining. Scored 0.",
+   "deal_note": "Zone A but top of budget: $4,995 base, $4,718 net (1 month free on 18 months per unit page; the search card said 2 months/20 months, $4,496). Renewals are on the $4,995 base.",
+   "action": "Ask for the DHCR rent history (legal rent registered since 2019) and the RS lease rider. If the registered rent is far below $4,995 without documented IAIs, it's overcharge leverage."
+  },
+  {
+   "id": "streeteasy:27_51-jackson-avenue-long_island_city/4g",
+   "address": "27-51 Jackson Avenue",
+   "unit": "4G",
+   "neighborhood": "Hunters Point",
+   "zone": "B",
+   "beds": 2,
+   "baths": 1,
+   "price": 4376,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/27_51-jackson-avenue-long_island_city/4g",
+   "listed_date": "2026-10-17",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 80,
+   "verdict": "Declared",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'rent-stabilized Affordable Housing Re-Rental'"
+    },
+    {
+     "name": "Affordable re-rental in new building",
+     "points": 20,
+     "detail": "Built 2025, 34 units, 14 stories: points to a 421-a/485-x regulatory agreement (not confirmed)"
+    },
+    {
+     "name": "Computed price",
+     "points": 10,
+     "detail": "$4,376 (same figure as The Dome #2H: looks like an AMI-formula rent)"
+    }
+   ],
+   "building": {
+    "bbl": null,
+    "year_built": 2025,
+    "units": 34,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": "Likely 421-a/485-x affordable, not confirmed",
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [
+    {
+     "date": "2026-10-17",
+     "price": 4376,
+     "event": "Listed (Reside New York)"
+    }
+   ],
+   "math": "First listing; AMI-formula rent, no RGB history to test.",
+   "deal_note": "Zone B. Income-restricted affordable unit (limits not shown on the page).",
+   "action": "Ask Reside for the income band and household-size rules before applying."
+  },
+  {
+   "id": "streeteasy:28-08-38th-avenue/studio-38/3b",
+   "address": "28-08 38th Avenue (Studio 38)",
+   "unit": "3B",
+   "neighborhood": "Long Island City",
+   "zone": "B",
+   "beds": 2,
+   "baths": 1,
+   "price": 3647,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/studio-38/3b",
+   "listed_date": "2026-11-03",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 80,
+   "verdict": "Declared",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'rent-stabilized Affordable Housing Re-Rental'"
+    },
+    {
+     "name": "Affordable re-rental in new building",
+     "points": 20,
+     "detail": "Built 2025, 50 units, income eligibility required: points to 421-a/485-x (not confirmed)"
+    },
+    {
+     "name": "Computed price",
+     "points": 10,
+     "detail": "$3,647"
+    }
+   ],
+   "building": {
+    "bbl": null,
+    "year_built": 2025,
+    "units": 50,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": "Likely 421-a/485-x affordable, not confirmed",
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [
+    {
+     "date": "2026-11-03",
+     "price": 3647,
+     "event": "Listed (Reside New York)"
+    }
+   ],
+   "math": "First listing; AMI-formula rent.",
+   "deal_note": "Zone B (Dutch Kills/LIC). Cheapest declared 2BR, but income-restricted.",
+   "action": "Ask Reside for the income limits (not on the page)."
+  },
+  {
+   "id": "streeteasy:bevel-lic/807",
+   "address": "42-20 27th Street (Bevel)",
+   "unit": "807",
+   "neighborhood": "Hunters Point",
+   "zone": "B",
+   "beds": 2,
+   "baths": 1,
+   "price": 4205,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/bevel-lic/807",
+   "listed_date": "2026-10-27",
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 35,
+   "verdict": "Declared",
+   "needs_review": false,
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'RENT STABILIZED' in About section"
+    },
+    {
+     "name": "Irregular rent history",
+     "points": -15,
+     "detail": "$5,852 rented Apr 2026, $4,145 rented Jun 2026, now $4,205: matches no guideline"
+    },
+    {
+     "name": "Bed count conflict",
+     "points": 0,
+     "detail": "Description says 'Great 1 bed with balcony' but listed as 2 beds"
+    }
+   ],
+   "building": {
+    "bbl": null,
+    "year_built": 2019,
+    "units": 195,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": "Probably 421-a (2019 rental), not confirmed",
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [
+    {
+     "date": "2026-10-27",
+     "price": 4205,
+     "event": "Listed (Brooklyn Living USA)"
+    },
+    {
+     "date": "2026-06-18",
+     "price": 4145,
+     "event": "Rented"
+    },
+    {
+     "date": "2026-04-03",
+     "price": 5852,
+     "event": "Rented (The KCI Group)"
+    }
+   ],
+   "math": "4,145 -> 4,205 = +1.45%, matches no order (Order 57 1-yr = 4,269; Order 58 = 4,145). Re-listed 4 months after renting.",
+   "deal_note": "Zone B. Possibly a 1BR mislabeled as 2BR.",
+   "action": "Confirm it's really a 2BR and ask for the RS rider and DHCR legal rent; the history is messy."
+  },
+  {
+   "id": "streeteasy:245-west-109-street-new_york/11",
+   "address": "245 West 109th Street",
+   "unit": "11",
+   "neighborhood": "Manhattan Valley",
+   "zone": "C",
+   "beds": 2,
+   "baths": 1,
+   "price": 3250,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/245-west-109-street-new_york/11",
+   "listed_date": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 60,
+   "verdict": "Declared",
+   "needs_review": true,
+   "signals": [
+    {
+     "name": "Matched 'stabilized' description search",
+     "points": 50,
+     "detail": ""
+    },
+    {
+     "name": "Round price",
+     "points": -5,
+     "detail": "$3,250"
+    }
+   ],
+   "building": {},
+   "history": [],
+   "math": "Not checked yet.",
+   "deal_note": "Cheap for Manhattan, but outside your core areas.",
+   "action": "Agent: verify."
+  },
+  {
+   "id": "streeteasy:542-east-79-street-new_york/5s",
+   "address": "542 East 79th Street",
+   "unit": "5S",
+   "neighborhood": "Lenox Hill",
+   "zone": "C",
+   "beds": 2,
+   "baths": 1,
+   "price": 3587,
+   "net_effective": null,
+   "url": "https://streeteasy.com/building/542-east-79-street-new_york/5s",
+   "listed_date": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "declared": true,
+   "confidence": 70,
+   "verdict": "Declared",
+   "needs_review": true,
+   "signals": [
+    {
+     "name": "Matched 'stabilized' description search",
+     "points": 50,
+     "detail": ""
+    },
+    {
+     "name": "Non-round price",
+     "points": 10,
+     "detail": "$3,587"
+    }
+   ],
+   "building": {},
+   "history": [],
+   "math": "Not checked yet.",
+   "deal_note": "",
+   "action": "Agent: verify."
+  },
+  {
+   "net_effective": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "needs_review": false,
+   "building": {
+    "bbl": "3024430011",
+    "year_built": 2014,
+    "units": 7,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": "Probably 421-a (2014 new build), not confirmed",
+    "dhcr_list": null,
+    "owner": "Terra Gardens LLC (openigloo)"
+   },
+   "history": [
+    {
+     "date": "2026-11-05",
+     "price": 4614,
+     "event": "Listed (101 Gardens LLC)"
+    },
+    {
+     "date": "2021-11-12",
+     "price": 4100,
+     "event": "Rented"
+    }
+   ],
+   "math": "4,100 x 1.0325 (O54) = 4,233.25; x 1.03 (O55) = 4,360.25; x 1.0275 (O56) = 4,480.15; x 1.03 (O57) = 4,614.56 ~ 4,614. Four consecutive 1-year renewals at the exact guideline rates.",
+   "deal_note": "Zone A, 2 blocks from the water; 600 sq ft duplex with a private garden. Not cheap per sq ft, but if RS the Oct 2026-Sep 2027 renewal is 0%.",
+   "action": "Ask 101 Gardens if the unit is rent stabilized under 421-a, for the RS lease rider and the DHCR registered rent, and when the 421-a benefit ends (and whether the rider says RS ends with it).",
+   "id": "streeteasy:94-south-4-street-brooklyn/1r",
+   "address": "94 South 4th Street",
+   "unit": "1R",
+   "neighborhood": "Williamsburg (South Side)",
+   "zone": "A",
+   "beds": 2,
+   "baths": 1.5,
+   "price": 4614,
+   "url": "https://streeteasy.com/building/94-south-4-street-brooklyn/1r",
+   "listed_date": "2026-11-05",
+   "declared": false,
+   "verdict": "Likely (hidden)",
+   "signals": [
+    {
+     "name": "Rent history follows RGB math",
+     "points": 25,
+     "detail": "$4,100 (Nov 2021) compounded by Orders 54-57 1-yr rates = $4,614.56; asking $4,614"
+    },
+    {
+     "name": "Building has RS units on tax bill",
+     "points": 20,
+     "detail": "openigloo: RS units Yes (count unknown); BBL 3-02443-0011"
+    },
+    {
+     "name": "Computed price",
+     "points": 10,
+     "detail": "$4,614"
+    },
+    {
+     "name": "Tax benefit",
+     "points": 0,
+     "detail": "Built 2014, 7 units: RS status probably comes from 421-a; not confirmed"
+    }
+   ],
+   "confidence": 55
+  },
+  {
+   "net_effective": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "needs_review": false,
+   "building": {
+    "bbl": null,
+    "year_built": 1931,
+    "units": 6,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [
+    {
+     "date": "2026-11-05",
+     "price": 3800,
+     "event": "Price decreased 5%"
+    },
+    {
+     "date": "2026-11-04",
+     "price": 4000,
+     "event": "Listed (Nooklyn)"
+    }
+   ],
+   "math": "No unit history. Building-level StreetEasy history shows market-style pricing (2018 cut chain $4,500 -> $4,000; 2025 2BRs at $3,600, 2026 at $4,580/$5,200). Building page currently shows the available 2BR as #1F at $4,000 - may be the same unit relabeled.",
+   "deal_note": "Cheapest zone A 2BR this run ($3,800 base, Craigslist says no fee). Renewals on the base rent.",
+   "action": "The 'RENT STABILIZED' claim comes only from a Craigslist post that appears to match; StreetEasy and the building history look market-rate. Ask Nooklyn for the RS lease rider and the DHCR registration before paying any fee.",
+   "id": "streeteasy:228-kingsland-avenue-brooklyn/1m",
+   "address": "228 Kingsland Avenue",
+   "unit": "1M",
+   "neighborhood": "Greenpoint",
+   "zone": "A",
+   "beds": 2,
+   "baths": 1,
+   "price": 3800,
+   "url": "https://streeteasy.com/building/228-kingsland-avenue-brooklyn/1m",
+   "listed_date": "2026-11-04",
+   "declared": true,
+   "verdict": "Declared",
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized (Craigslist)",
+     "points": 50,
+     "detail": "Craigslist 11/5/2026 'BEAUTIFUL 2 BEDROOM - RENT STABILIZED!!', Kingsland near Nassau, $3,800, roof deck, laundry, central A/C, avail Nov 15 - matches this unit; match inferred, not confirmed"
+    },
+    {
+     "name": "Building profile",
+     "points": 10,
+     "detail": "Built 1931, 6 units, 3 stories, rental"
+    },
+    {
+     "name": "Marketing-style price",
+     "points": -5,
+     "detail": "$3,800 (cut from $4,000 on day 2)"
+    },
+    {
+     "name": "Market-like history across tenancies",
+     "points": -15,
+     "detail": "Building page: dozens of 2018 listings with repeated cuts ($4,500 -> $4,300 -> $4,100 -> $4,000), irregular rents by unit; building class C2 (5-6 families)"
+    }
+   ],
+   "confidence": 40
+  },
+  {
+   "net_effective": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "needs_review": true,
+   "building": {
+    "bbl": null,
+    "year_built": null,
+    "units": null,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [],
+   "math": "No history; address unknown.",
+   "deal_note": "Zone A Greenpoint, lowest declared price seen. No address, broker or post date: treat with caution.",
+   "action": "Reply to the post for the address; then check the building RS count and ask for the DHCR registered rent.",
+   "id": "craigslist:7898287625",
+   "address": "Dupont Street (no number given)",
+   "unit": "",
+   "neighborhood": "Greenpoint",
+   "zone": "A",
+   "beds": 2,
+   "baths": null,
+   "price": 3455,
+   "url": "https://newyork.craigslist.org/brk/apa/d/long-island-city-greenpoint-rent/7898287625.html",
+   "listed_date": null,
+   "declared": true,
+   "verdict": "Declared",
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'Rent stabilized @ $3,455'; prewar, private backyard, laundry in building"
+    },
+    {
+     "name": "Computed price",
+     "points": 10,
+     "detail": "$3,455"
+    }
+   ],
+   "confidence": 60
+  },
+  {
+   "net_effective": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "needs_review": true,
+   "building": {
+    "bbl": null,
+    "year_built": null,
+    "units": null,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": null
+   },
+   "history": [],
+   "math": "A second post (10/19, $3,586, 'Rent stabilized building!', same block, 1st floor) may be the same or a sister unit: https://www.craigslist.org/view/d/brooklyn-beautiful-rent-stablized/5Q4zfKmkJ7ibHPSnnFmUuw",
+   "deal_note": "Zone A edge (Hewes & S 4th is right at the BQE, near Union Ave); very cheap for a 2BR with heat included. No street number.",
+   "action": "Text the poster for the address and whether $3,500 or $3,586 is the legal rent; then check DHCR.",
+   "id": "craigslist:7987463958",
+   "address": "Hewes Street near South 4th St",
+   "unit": "1st floor",
+   "neighborhood": "Williamsburg (South Side / BQE edge)",
+   "zone": "A",
+   "beds": 2,
+   "baths": 1,
+   "price": 3500,
+   "url": "https://www.craigslist.org/view/d/brooklyn-rent-stabilized-bedroom-in-the/u4wJeTSW347sUy1SNdRDHB",
+   "listed_date": "2026-10-21",
+   "declared": true,
+   "verdict": "Declared",
+   "signals": [
+    {
+     "name": "Listing says rent-stabilized",
+     "points": 50,
+     "detail": "'Rent-stabilized apartment'; live-in super, heat & hot water included"
+    },
+    {
+     "name": "Marketing-style price",
+     "points": -5,
+     "detail": "$3,500"
+    }
+   ],
+   "confidence": 45
+  },
+  {
+   "net_effective": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "needs_review": false,
+   "building": {
+    "bbl": "3024510005",
+    "year_built": 1915,
+    "units": 30,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": "Brooklyn S Fourth LLC"
+   },
+   "history": [
+    {
+     "date": "2026-11-06",
+     "price": 4495,
+     "event": "Listed (REAL New York)"
+    }
+   ],
+   "math": "No unit history. openigloo unit #2 in the building: $3,200 (2016) -> $3,415 (2018); building has RS units on record, count not shown.",
+   "deal_note": "Kept despite the low score: zone A, pre-war 30-unit RS-registered building. Poor condition record: 66 open HPD violations (19 class C), 3 evictions.",
+   "action": "Ask REAL whether #2S is rent stabilized and request the DHCR rent history; if units were deregulated before 2019, check how.",
+   "id": "streeteasy:378-south-4-street-brooklyn/2s",
+   "address": "380 South 4th Street",
+   "unit": "2S",
+   "neighborhood": "Williamsburg (South Side)",
+   "zone": "A",
+   "beds": 2,
+   "baths": 1,
+   "price": 4495,
+   "url": "https://streeteasy.com/building/378-south-4-street-brooklyn/2s",
+   "listed_date": "2026-11-06",
+   "declared": false,
+   "verdict": "Unlikely",
+   "signals": [
+    {
+     "name": "Building has RS units on tax bill",
+     "points": 20,
+     "detail": "openigloo: RS units Yes (count unknown); BBL 3-02451-0005"
+    },
+    {
+     "name": "Building profile",
+     "points": 10,
+     "detail": "Built 1915, 30 units, 5 stories, rental"
+    },
+    {
+     "name": "Marketing-style price",
+     "points": -5,
+     "detail": "$4,495"
+    }
+   ],
+   "confidence": 25
+  },
+  {
+   "net_effective": null,
+   "first_seen": "2026-11-07",
+   "last_seen": "2026-11-07",
+   "status": "active",
+   "needs_review": true,
+   "building": {
+    "bbl": null,
+    "year_built": 1928,
+    "units": 8,
+    "rs_units": null,
+    "rs_year": null,
+    "rs_ratio": null,
+    "tax_program": null,
+    "dhcr_list": null,
+    "owner": "Zg Franklin LLC (Zofia Grzesik); broker Andrew Grzesik"
+   },
+   "history": [
+    {
+     "date": "2026-11-05",
+     "price": 4000,
+     "event": "Listed (Apple Exclusive)"
+    },
+    {
+     "date": "2025-02-08",
+     "price": 3900,
+     "event": "Rented"
+    }
+   ],
+   "math": "3,900 x 1.0275 (O56, Feb 2026 renewal) = 4,007.25; asking 4,000 is close but not within $5.",
+   "deal_note": "Kept despite the low score: zone A, skyline views, 2 baths, $4,000 base, RS-registered pre-war building.",
+   "action": "Ask the broker whether #4 is rent stabilized and for the DHCR registered rent.",
+   "id": "streeteasy:219-franklin-street-brooklyn/4",
+   "address": "219 Franklin Street",
+   "unit": "4",
+   "neighborhood": "Greenpoint",
+   "zone": "A",
+   "beds": 2,
+   "baths": 2,
+   "price": 4000,
+   "url": "https://streeteasy.com/building/219-franklin-street-brooklyn/4",
+   "listed_date": "2026-11-05",
+   "declared": false,
+   "verdict": "Unlikely",
+   "signals": [
+    {
+     "name": "Building has RS units on tax bill",
+     "points": 20,
+     "detail": "openigloo: RS units Yes (count unknown)"
+    },
+    {
+     "name": "Building profile",
+     "points": 10,
+     "detail": "Built 1928, 8 units, 4 stories, rental"
+    },
+    {
+     "name": "Rent history step",
+     "points": 0,
+     "detail": "3,900 (Feb 2025) -> 4,000; Order 56 1-yr would be 4,007 (off by $7)"
+    },
+    {
+     "name": "Marketing-style price",
+     "points": -5,
+     "detail": "$4,000"
+    }
+   ],
+   "confidence": 25
+  }
+ ]
+}
